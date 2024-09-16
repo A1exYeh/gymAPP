@@ -15,11 +15,20 @@ document.getElementById('logInCard').addEventListener('submit', function(e) {
       headers: {
          'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      //?: redirect field set to follow
+      redirect: 'follow'
    })
    //whatever response we get, we read it as a json file
-   .then(response => response.json())
+   .then(response => {
+      if (response.redirected) {
+         window.location.href = response.url
+      } else {
+         return response.json();
+      }
+   })
    .then (data =>{
+      //old handling of response when it was a json
       JSON.stringify(data);
       console.log(data.message);
    })

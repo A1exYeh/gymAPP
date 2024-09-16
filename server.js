@@ -26,16 +26,40 @@ app.post('/submit', (req, res) => {
    //we compare for valid login credentials
    //.trim() is supposed to get rido f any extra whitespace, etc.
    if (username.trim() === testUsername && password.trim() === testPassword){
-      res.json({
-         message: 'Valid Login credentials',
-         logIn: req.body
-      });
+      //log directory of valid login page
+      console.log(__dirname + '/public/validLogin.html');
+
+      //send a redirect which is handled by the get request handler at endpoint
+      res.redirect('/validLogin');
+
+      //old code that returns login credentials and validity message 
+      //res.json({
+      //   message: 'Valid Login credentials',
+      //   logIn: req.body
+      //});
    } else {
-      res.json({
-         message: 'Invalid Login credentials',
-         logIn: req.body
-      });
+      //log directory of invalid login page
+      console.log(__dirname + '/public/invalidLogin.html');
+      
+      //send a redirect which is handled by the get request handler at endpoint
+      res.redirect('/invalidLogin');
+
+      //old code that returns login credentials and validity message 
+      //res.json({
+      //   message: 'Invalid Login credentials',
+      //   logIn: req.body
+      //});
    }
+});
+
+//get handler for valid login endpoint
+app.get('/validLogin', (req, res) => {
+   res.sendFile(__dirname + '/public/validLogin.html');
+});
+
+//get handler for invalid login endpoint
+app.get('/invalidLogin', (req, res) => {
+   res.sendFile(__dirname + '/public/invalidLogin.html');
 });
 
 //when the server starts successfully we send this message to the server side console
