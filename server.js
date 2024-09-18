@@ -1,5 +1,6 @@
 //express JS setup
 const express = require('express');
+const path = require('path');
 const app = express();
 
 //tell Render service to select their own port, use 3000 otherwise
