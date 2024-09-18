@@ -8,8 +8,10 @@ html, body {
     color: #E0E0E0;
 }
 
-h1 {
+header h1 {
+    padding-top: 1em;
     margin: 0;
+    text-align: center;
 }
 
 #logInCard {
