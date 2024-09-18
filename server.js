@@ -14,7 +14,12 @@ app.use(express.json());
 
 //we are returning files from the public directory only
 //tell Render to use public folder to serve static pages
-app.use(express.static(__dirname + 'public'));
+app.use(express.static((__dirname + 'public'));
+
+//setup get handler for index.html for when server starts
+app.get ('/', (req, res) => {
+   res.sendFile(__dirname + '/public/index.html');
+});
 
 //POST requests made to the /submit endpoint end up here 
 app.post('/submit', (req, res) => {
