@@ -1,7 +1,9 @@
 //express JS setup
 const express = require('express');
 const app = express();
-const port = 3000;
+
+//tell Render service to select their own port, use 3000 otherwise
+const port = process.env.PORT || 3000;
 
 //hardcoded test creditials
 const testUsername = 'testUser';
@@ -11,7 +13,8 @@ const testPassword = 'password123';
 app.use(express.json());
 
 //we are returning files from the public directory only
-app.use(express.static('public'));
+//tell Render to use public folder to serve static pages
+app.use(express.static(__dirname + 'public'));
 
 //POST requests made to the /submit endpoint end up here 
 app.post('/submit', (req, res) => {
@@ -65,5 +68,5 @@ app.get('/invalidLogin', (req, res) => {
 
 //when the server starts successfully we send this message to the server side console
 app.listen(port, () => {
-   console.log('Server running at http://localhost:${port}');
+   console.log('Server running at on port: ${port}');
 });
