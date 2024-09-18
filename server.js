@@ -69,7 +69,8 @@ app.get('/invalidLogin', (req, res) => {
 //when the server starts successfully we send this message to the server side console
 app.listen(port, () => {
    //use url given by render
-   const host = process.env.RENDER_EXTERNAL_URL || 'http://localhost:{$port}';
-   console.log('Server running at on host: ${host}');
-   console.log('Server running at on port: ${port}');
+   const host = process.env.RENDER_EXTERNAL_URL || 'http://localhost:' + port;
+   console.log('Server running at: ' + host);
+  console.log('Port: ' + port);
+  console.log('RENDER_EXTERNAL_URL: ' + (process.env.RENDER_EXTERNAL_URL || 'Not set'));
 });
