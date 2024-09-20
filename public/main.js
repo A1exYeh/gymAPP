@@ -32,11 +32,6 @@ if (logInCard) {
             return response.json();
          }
       })
-      .then (data =>{
-         //old handling of response when it was a json
-         JSON.stringify(data);
-         console.log(data.message);
-      })
       .catch(error => {
          console.error('Error:', error);
       });
@@ -67,8 +62,10 @@ if (logOutButton) {
    
 }
 
+//check for existence of dashboard header to verify that we are in dashboard.html
 const dashboard = document.getElementById('dashHeader');
 if (dashboard) {
+   //test variables for user input 
    const usernameID = document.getElementById('usernameID');
    const savedInputElement = document.getElementById('savedInput');
    const userInput = document.getElementById('userInput');

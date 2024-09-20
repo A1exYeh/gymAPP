@@ -61,7 +61,7 @@ app.post('/submit', (req, res) => {
       if (req.session.userInput) {
          req.session.userInput = req.session.userInput; // Keep existing input
       }
-      
+
       //send a redirect which is handled by the get request handler at endpoint
       res.redirect('/dashboard');
 
@@ -73,7 +73,6 @@ app.post('/submit', (req, res) => {
    } else {
       //log directory of invalid login page
       console.log(__dirname + '/public/invalidLogin.html');
-      
       //send a redirect which is handled by the get request handler at endpoint
       res.redirect('/invalidLogin');
 
@@ -135,7 +134,8 @@ app.get('/sessionData', (req, res) => {
 app.post('/saveUserInput', (req, res) => {
    if (req.session.isAuthenticated) {
       const {input} = req.body;
-      req.session.userInput = input; //save input from user
+      console.log("req.body: " + input);
+      req.session.userInput = input; //save input from user in the session
       res.json({
          success: true
       });

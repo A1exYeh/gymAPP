@@ -3,7 +3,7 @@ html, body {
     box-sizing: border-box;
     background-color: #000000;
     margin: 0;
-    height: 100vw;
+    height: 100vh;
     width: auto;
     color: #E0E0E0;
 }
@@ -20,8 +20,8 @@ header h1 {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.9px);
     -webkit-backdrop-filter: blur(8.9px);
-
-    width: 20%;
+    width: fit-content;
+    padding: 0 3vw;
     height: 30%;
     text-align: center;
     margin-top: 1em;
