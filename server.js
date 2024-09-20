@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+//session setup
+const session = require('express-session');
+
 //tell Render service to select their own port, use 3000 otherwise
 const port = process.env.PORT || 3000;
 
@@ -16,6 +19,14 @@ app.use(express.json());
 //we are returning files from the public directory only
 //tell Render to use public folder to serve static pages
 app.use(express.static((path.join(__dirname, 'public'))));
+
+//session parameters
+app.use(session({
+   secret: 'secret-test-key',  //test key
+   resave: false,
+   saveUninitialized: true,
+   cookie: { secure: false }  
+}));
 
 //setup get handler for index.html for when server starts
 app.get ('/', (req, res) => {
@@ -37,10 +48,16 @@ app.post('/submit', (req, res) => {
    //.trim() is supposed to get rido f any extra whitespace, etc.
    if (username.trim() === testUsername && password.trim() === testPassword){
       //log directory of valid login page
-      console.log(__dirname + '/public/validLogin.html');
+      console.log(__dirname + '/public/dashboard.html');
+      
+      //set session parameters 
+      req.sessionID = username;
+      req.session.isAuthenticated = true;
 
+      console.log ("Session ID: " + req.sessionID);
+      console.log("Authenticated: " + req.session.isAuthenticated);
       //send a redirect which is handled by the get request handler at endpoint
-      res.redirect('/validLogin');
+      res.redirect('/dashboard');
 
       //old code that returns login credentials and validity message 
       //res.json({
@@ -60,6 +77,30 @@ app.post('/submit', (req, res) => {
       //   logIn: req.body
       //});
    }
+});
+
+//app get handler for dashbaord
+
+app.get('./dashboard', (req, res) => {
+   //if the user session is valid we send the dashboard page
+   if (req.session.isAuthenticated) {
+      res.sendFile(__dirname + '/public/dashboard.html');
+   } else {
+      //if there is no valid session then we send the user back to home page
+      res.redirect('/');
+   }
+});
+
+//logout get handler
+
+app.get('./logout', (req, res) => {
+   req.session.destroy((err) => {
+      if (err) {
+         console.log("Error during session destruction:" + err);
+      }
+
+      res.redirect('/'); //send user to homepage
+   });
 });
 
 //get handler for valid login endpoint
