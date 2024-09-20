@@ -1,10 +1,18 @@
 //express JS setup
 const express = require('express');
+//session setup
+const session = require('express-session');
 const path = require('path');
 const app = express();
 
-//session setup
-const session = require('express-session');
+//session parameters
+app.use(session({
+   secret: 'secret-test-key',  //test key
+   resave: false,
+   saveUninitialized: true,
+   cookie: { secure: false }  
+}));
+
 
 //tell Render service to select their own port, use 3000 otherwise
 const port = process.env.PORT || 3000;
@@ -20,13 +28,6 @@ app.use(express.json());
 //tell Render to use public folder to serve static pages
 app.use(express.static((path.join(__dirname, 'public'))));
 
-//session parameters
-app.use(session({
-   secret: 'secret-test-key',  //test key
-   resave: false,
-   saveUninitialized: true,
-   cookie: { secure: false }  
-}));
 
 //setup get handler for index.html for when server starts
 app.get ('/', (req, res) => {
@@ -51,11 +52,16 @@ app.post('/submit', (req, res) => {
       console.log(__dirname + '/public/dashboard.html');
       
       //set session parameters 
-      req.sessionID = username;
+      req.session.username = username;
       req.session.isAuthenticated = true;
 
       console.log ("Session ID: " + req.sessionID);
       console.log("Authenticated: " + req.session.isAuthenticated);
+
+      if (req.session.userInput) {
+         req.session.userInput = req.session.userInput; // Keep existing input
+      }
+      
       //send a redirect which is handled by the get request handler at endpoint
       res.redirect('/dashboard');
 
@@ -81,26 +87,61 @@ app.post('/submit', (req, res) => {
 
 //app get handler for dashbaord
 
-app.get('./dashboard', (req, res) => {
-   //if the user session is valid we send the dashboard page
+app.get('/dashboard', (req, res) => {
+   console.log("Dashboard route accessed. Session authenticated:", req.session.isAuthenticated);
    if (req.session.isAuthenticated) {
-      res.sendFile(__dirname + '/public/dashboard.html');
+      res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
    } else {
-      //if there is no valid session then we send the user back to home page
+      console.log("User not authenticated. Redirecting to home.");
       res.redirect('/');
    }
 });
 
 //logout get handler
 
-app.get('./logout', (req, res) => {
-   req.session.destroy((err) => {
-      if (err) {
-         console.log("Error during session destruction:" + err);
-      }
+app.get('/logout', (req, res) => {
+   console.log("Current session:", req.session); // Log the current session
 
-      res.redirect('/'); //send user to homepage
+   req.session.destroy((err) => {
+       if (err) {
+           console.log("Error during session destruction:", err);
+       } else {
+           console.log("Session destroyed");
+       }
+
+       res.redirect('/logoutPage') // Serve logout page
    });
+});
+
+app.get('/logoutPage', (req, res) => {
+   res.sendFile(path.join(__dirname , 'public', 'logout.html'));
+});
+
+//app get handler to retrieve session data 
+app.get('/sessionData', (req, res) => {
+   if (req.session.isAuthenticated){
+      res.json({
+         username: req.session.username,
+         userInput: req.session.userInput
+      });
+   } else {
+      res.json({
+         message: "NO AUTHORIZATION"
+      });
+   }
+});
+
+//handler for posting an input from user
+app.post('/saveUserInput', (req, res) => {
+   if (req.session.isAuthenticated) {
+      const {input} = req.body;
+      req.session.userInput = input; //save input from user
+      res.json({
+         success: true
+      });
+   } else {
+      res.status(403).json({ success: false, message: 'Not authenticated' }); //send error if no auth
+   }
 });
 
 //get handler for valid login endpoint
