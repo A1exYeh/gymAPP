@@ -107,7 +107,9 @@ if (dashboard) {
             headers: {
                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({input: userInputValue})
+            body: JSON.stringify({
+               input: userInputValue
+            })
          })
          .then(respone => respone.json())
          .then(data => {

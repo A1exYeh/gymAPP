@@ -5,6 +5,7 @@ const session = require('express-session');
 const path = require('path');
 const app = express();
 
+
 //session parameters
 app.use(session({
    secret: 'secret-test-key',  //test key
@@ -87,7 +88,7 @@ app.post('/submit', (req, res) => {
 //app get handler for dashbaord
 
 app.get('/dashboard', (req, res) => {
-   console.log("Dashboard route accessed. Session authenticated:", req.session.isAuthenticated);
+   console.log("Dashboard accessed. Session authenticated:", req.session.isAuthenticated);
    if (req.session.isAuthenticated) {
       res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
    } else {
@@ -97,7 +98,6 @@ app.get('/dashboard', (req, res) => {
 });
 
 //logout get handler
-
 app.get('/logout', (req, res) => {
    console.log("Current session:", req.session); // Log the current session
 
