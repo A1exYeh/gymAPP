@@ -6,7 +6,16 @@ const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 
-mongoose.connect()
+require('dotenv').config();
+
+
+mongoose.connect(process.env.MONGODB_URI, {
+   userNewUrlParser: true,
+   useUnifiedTopology: true
+})
+.then(() => console.log("Successfully connected to MongoDB Atlas"))
+.catch(err => console.log("Error: ", err));
+
 //session parameters
 app.use(session({
    secret: 'secret-test-key',  //test key
