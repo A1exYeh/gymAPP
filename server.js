@@ -3,22 +3,27 @@ const express = require('express');
 //session setup
 const session = require('express-session');
 const path = require('path');
-const app = express();
 const mongoose = require('mongoose');
+const User = require('./models/user.js');
+const app = express();
 
 require('dotenv').config();
 
-
 mongoose.connect(process.env.MONGODB_URI, {
-   userNewUrlParser: true,
+   useNewUrlParser: true,
    useUnifiedTopology: true
 })
-.then(() => console.log("Successfully connected to MongoDB Atlas"))
+.then(() => 
+   {
+      console.log("Successfully connected to MongoDB Atlas");
+      console.log("Connected to DB: ", mongoose.connection.name);
+      console.log(mongoose.connection.collections);
+   })
 .catch(err => console.log("Error: ", err));
 
 //session parameters
 app.use(session({
-   secret: 'secret-test-key',  //test key
+   secret: 'your_session_secret',  //test key
    resave: false,
    saveUninitialized: true,
    cookie: { secure: false }  
@@ -46,7 +51,7 @@ app.get ('/', (req, res) => {
 });
 
 //POST requests made to the /submit endpoint end up here 
-app.post('/submit', (req, res) => {
+app.post('/submit',  async (req, res) => {
    //log what was sent to the post
    console.log('LogIn form data received:', req.body);
 
@@ -55,10 +60,12 @@ app.post('/submit', (req, res) => {
 
    //log the variables.
    console.log(`Received username: ${username}, password: ${password}`);
-
+   //look in db for user
+   const user = await User.findOne({username, password});
+   console.log("User Found: ", user);
    //we compare for valid login credentials
    //.trim() is supposed to get rido f any extra whitespace, etc.
-   if (username.trim() === testUsername && password.trim() === testPassword){
+   if (user) {
       //log directory of valid login page
       console.log(__dirname + '/public/dashboard.html');
       
@@ -69,29 +76,14 @@ app.post('/submit', (req, res) => {
       console.log ("Session ID: " + req.sessionID);
       console.log("Authenticated: " + req.session.isAuthenticated);
 
-      if (req.session.userInput) {
-         req.session.userInput = req.session.userInput; // Keep existing input
-      }
-
       //send a redirect which is handled by the get request handler at endpoint
       res.redirect('/dashboard');
 
-      //old code that returns login credentials and validity message 
-      //res.json({
-      //   message: 'Valid Login credentials',
-      //   logIn: req.body
-      //});
    } else {
       //log directory of invalid login page
       console.log(__dirname + '/public/invalidLogin.html');
       //send a redirect which is handled by the get request handler at endpoint
       res.redirect('/invalidLogin');
-
-      //old code that returns login credentials and validity message 
-      //res.json({
-      //   message: 'Invalid Login credentials',
-      //   logIn: req.body
-      //});
    }
 });
 
@@ -127,11 +119,12 @@ app.get('/logoutPage', (req, res) => {
 });
 
 //app get handler to retrieve session data 
-app.get('/sessionData', (req, res) => {
+app.get('/sessionData', async (req, res) => {
    if (req.session.isAuthenticated){
+      const user = await User.findOne({username: req.session.username});
       res.json({
-         username: req.session.username,
-         userInput: req.session.userInput
+         username: user.username,
+         userInput: user.userInput
       });
    } else {
       res.json({
@@ -141,14 +134,20 @@ app.get('/sessionData', (req, res) => {
 });
 
 //handler for posting an input from user
-app.post('/saveUserInput', (req, res) => {
+app.post('/saveUserInput', async (req, res) => {
    if (req.session.isAuthenticated) {
       const {input} = req.body;
+
       console.log("req.body: " + input);
-      req.session.userInput = input; //save input from user in the session
-      res.json({
-         success: true
-      });
+
+      await User.findOneAndUpdate(
+         {username: req.session.username},
+         {userInput: input},
+         {new: true}
+      );
+      res.json(
+         {success: true}
+      );
    } else {
       res.status(403).json({ success: false, message: 'Not authenticated' }); //send error if no auth
    }

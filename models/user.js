@@ -7,4 +7,5 @@ const UserSchema = new mongoose.Schema({
     userInput: String
 });
 
-module.exports = mongoose.model('User', UserSchema);
+//we are looking for the user profile 
+module.exports = mongoose.model('User', UserSchema, 'icarus-app-db');
