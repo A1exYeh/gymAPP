@@ -73,3 +73,32 @@ header h1 {
 #logInSubmit:hover {
     background-color: #62a6ff;
 }
+
+/* dashboard.html */
+
+#dashNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2vw;
+    list-style: none;
+    height: auto;
+    padding: 0;
+    margin: 4vh 4vw;
+    font-size: clamp(1vw, 1em, 2vw);
+}
+
+#dashNav, #dashNav a {
+    color: white;
+}
+
+#dashNav a {
+    background-color: red;
+    height: auto;
+    text-decoration: none;
+}
+
+#dashNav li:nth-child(1) {
+    margin-right: auto;
+}
