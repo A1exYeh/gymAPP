@@ -149,13 +149,46 @@ app.post('/saveUserInput', async (req, res) => {
       await User.findOneAndUpdate(
          {username: req.session.username},
          {userInput: input},
-         {new: true}
+         {new: true, runValidators: true}
       );
       res.json(
          {success: true}
       );
    } else {
       res.status(403).json({ success: false, message: 'Not authenticated' }); //send error if no auth
+   }
+});
+
+app.post('/updateExercise', async (req, res) => {
+   if (req.session.isAuthenticated) {
+      const {exerciseName, weight} = req.body;
+
+      console.log("req.body: ", req.body);
+
+      const user = await User.findOneAndUpdate(
+         { username: req.session.username, 'exercises.name': exerciseName },
+         {
+            $set: {
+               'exercises.$.lastWeight': weight, 
+               'exercises.$.lastUpdated': new Date()
+            }
+         },
+         { new: true, runValidators: true } // Ensure we return the updated document and run validators
+      );
+
+      if (user) {     
+
+         console.log("Updated User Exercises Profile: ", user.exercises);
+
+         res.json(
+            {
+               success: true,
+               message: 'Exercise weight updated successfully'
+            }
+         );
+      } else {
+         return res.status(404).json({ success: false, message: 'User not found' });
+      }
    }
 });
 
