@@ -121,11 +121,17 @@ app.get('/logoutPage', (req, res) => {
 //app get handler to retrieve session data 
 app.get('/sessionData', async (req, res) => {
    if (req.session.isAuthenticated){
-      const user = await User.findOne({username: req.session.username});
-      res.json({
-         username: user.username,
-         userInput: user.userInput
-      });
+      try {
+         const user = await User.findOne({username: req.session.username});
+         res.json({
+            username: user.username,
+            userInput: user.userInput,
+            exercises: user.exercises,
+            lastGymVisit: user.lastGymVisit
+         });
+      } catch (error) {
+         console.log("Error loading User Session Data: ", error);
+      }
    } else {
       res.json({
          message: "NO AUTHORIZATION"
@@ -161,6 +167,10 @@ app.get('/validLogin', (req, res) => {
 //get handler for invalid login endpoint
 app.get('/invalidLogin', (req, res) => {
    res.sendFile(__dirname + '/public/invalidLogin.html');
+});
+
+app.get('/loadExercise', (req, res) => {
+
 });
 
 //when the server starts successfully we send this message to the server side console
