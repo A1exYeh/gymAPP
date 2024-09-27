@@ -171,7 +171,7 @@ if (dashboard) {
          })
          .catch (error => {
             console.error('Error fetching session data:', error);
-            exerciseList.innerHTML = '<p>Error loading exercises. Please try again later.</p>';
+            //exerciseList.innerHTML = '<p>Error loading exercises. Please try again later.</p>';
          });
       });
 

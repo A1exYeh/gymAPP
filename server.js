@@ -173,7 +173,7 @@ app.post('/updateExercise', async (req, res) => {
                'exercises.$.lastUpdated': new Date()
             }
          },
-         { new: true, runValidators: true } // Ensure we return the updated document and run validators
+         { new: true, runValidators: true } 
       );
 
       if (user) {     

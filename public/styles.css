@@ -113,29 +113,38 @@ header h1 {
     background: #18191b;
     display: flex;
     flex-direction: row;
-    justify-items: center;
     justify-content: center;
     align-items: center;
+    border-radius: 1em;
+    margin: 1vh auto;
     padding: 2vh 2vw;
     gap: 2vw;
-    width: auto;
+    width: 90vw;
     overflow: hidden;
+}
+
+#exerciseCard h3#exerciseTitle, #exerciseCard div#exerciseLastWeight, 
+#exerciseCard #newExerciseWeight, #exerciseCard button#updateExercise {
+    padding: 0 1vw;
+    margin: 0;
+    height: 6vh;
+    width: auto;
+    border-radius: 1em;
+    border: none;
+    font-size: clamp(12px, 2vw, 1em);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #exerciseCard h3#exerciseTitle {
     text-align: center;
-    margin: 0;
-    border-radius: 1em;
-    font-size: 1em;
-    padding: 2.4vw;
 }
 
 
 #exerciseCard div#exerciseLastWeight {
     background-color: #255faa;
-    font-size: 1em;
-    border-radius: 1em;
-    padding: 2.4vw;
     font-weight: bold;
 }
 
@@ -143,20 +152,15 @@ header h1 {
     background-color: #255faa;
     color: white;
     width: 12vw;
-    padding: 2.4vw;
-    border-radius: 1em;
-    font-size: 1em;
-    border: none;
+    
 }
 
 #exerciseCard #newExerciseWeight:focus {
     outline: solid #62a6ff;
 }
 
-#exerciseCard #updateExercise {
-    padding: 2.4vw;
-    border-radius: 1em;
-    border: none;
+#exerciseCard button#updateExercise {
     color: white;
     background-color: #255faa;
 }
+
