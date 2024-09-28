@@ -16,26 +16,24 @@
         </section>
         <section id="userDashboard">
             <h1>WELCOME <span id="usernameID"></span>!</h1>
-            <label for="userInput">I WORKED OUT FOR THIS MANY DAYS: </label>
-            <input type="number" id="userInput">
-            <input type="submit" value="SAVE" id="saveButton">
-            <h1>LAST SAVE: <span id="savedInput"></span></h1>
         </section>
         <section id="exerciseSection">
-            <h2>Last Gym Check In: <span id="lastGymVisit"></span></h2>
-            <h2>Add exercise: <span><button id="addExerciseButton">ADD</button></span> </h2>
+            <div id="headerCard">
+                <h2 id="lastGymVisitTitle">Last Gym Check In: <span id="lastGymVisit"></span><span><button id="addVisitDateButton">ADD</button></span></h2>
+                <h2 id="addExerciseTitle">Add exercise: <span><button id="addExerciseButton">ADD</button></span> </h2>
+            </div>
             <div id="exerciseList">
                 <div id="exerciseCard">
-                    <h3 id="exerciseTitle" data-name="testExercise">testExercise</h3>
-                    <div id="exerciseLastWeight">testLastWeight<span> LBs</span></div>
+                    <h3 id="exerciseTitle" data-name="testExercise">test Exercise</h3>
+                    <div id="exerciseLastWeight">150<span> LBs</span></div>
                     <input type="number" id="newExerciseWeight" placeholder="New weight">
                     <button id="updateExercise">
                     Update
                     </button>
                 </div>
                 <div id="exerciseCard">
-                    <h3 id="exerciseTitle" data-name="testExercise">testExercise</h3>
-                    <div id="exerciseLastWeight">testLastWeight<span> LBs</span></div>
+                    <h3 id="exerciseTitle" data-name="testExercise">test Exercise</h3>
+                    <div id="exerciseLastWeight">110<span> LBs</span></div>
                     <input type="number" id="newExerciseWeight" placeholder="New weight">
                     <button id="updateExercise">
                     Update

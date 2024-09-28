@@ -125,7 +125,6 @@ app.get('/sessionData', async (req, res) => {
          const user = await User.findOne({username: req.session.username});
          res.json({
             username: user.username,
-            userInput: user.userInput,
             exercises: user.exercises,
             lastGymVisit: user.lastGymVisit
          });
@@ -142,13 +141,13 @@ app.get('/sessionData', async (req, res) => {
 //handler for posting an input from user
 app.post('/saveUserInput', async (req, res) => {
    if (req.session.isAuthenticated) {
-      const {input} = req.body;
+      const {newVisitDate} = req.body;
 
-      console.log("req.body: " + input);
+      console.log("req.body: ", newVisitDate);
 
       await User.findOneAndUpdate(
          {username: req.session.username},
-         {userInput: input},
+         {lastGymVisit: newVisitDate},
          {new: true, runValidators: true}
       );
       res.json(

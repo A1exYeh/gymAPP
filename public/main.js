@@ -67,9 +67,10 @@ const dashboard = document.getElementById('dashHeader');
 if (dashboard) {
    //test variables for user input 
    const usernameID = document.getElementById('usernameID');
-   const savedInputElement = document.getElementById('savedInput');
+   const lastGymVisit= document.getElementById('lastGymVisit');
    const userInput = document.getElementById('userInput');
    const addExerciseButton = document.getElementById('addExerciseButton');
+   const updateGymVisitButton = document.getElementById('addVisitDateButton');
 
    function updateExercise(exerciseName, newWeight) {
       fetch('/updateExercise', {
@@ -148,8 +149,9 @@ if (dashboard) {
                usernameID.textContent = data.username; //set the username
             }
 
-            if (data.userInput) {
-               savedInputElement.textContent = data.userInput;
+            if (data.lastGymVisit) {
+               console.log("last gym visit: ", data.lastGymVisit);
+               lastGymVisit.textContent = new Date(data.lastGymVisit);
             }
 
             if(data.exercises ){
@@ -175,14 +177,10 @@ if (dashboard) {
          });
       });
 
-      const saveButton = document.getElementById('saveButton');
-
-      saveButton.addEventListener('click', function(e) {
+      updateGymVisitButton.addEventListener('click', function(e) {
          e.preventDefault();
-         const userInputValue = userInput.value;
+         const newVisitDate = new Date();
          //const savedInputElement = document.getElementById('savedInput');
-
-         localStorage.setItem('userInput', userInputValue);
    
          fetch('/saveUserInput', {
             method: 'POST',
@@ -190,13 +188,13 @@ if (dashboard) {
                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-               input: userInputValue
+               newVisitDate: newVisitDate
             })
          })
          .then(respone => respone.json())
          .then(data => {
             if (data.success) {
-               savedInputElement.textContent = userInputValue;
+               lastGymVisit.textContent = newVisitDate;
             }
          })
          .catch(error => {

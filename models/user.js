@@ -10,7 +10,6 @@ const ExerciseSchema = new mongoose.Schema({
 const UserSchema = new mongoose.Schema({
     username: String,
     password: String,
-    userInput: String,
     exercises: [ExerciseSchema],
     lastGymVisit: Date
 });

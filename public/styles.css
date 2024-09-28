@@ -118,9 +118,10 @@ header h1 {
     border-radius: 1em;
     margin: 1vh auto;
     padding: 2vh 2vw;
-    gap: 2vw;
+    gap: 4vw;
     width: 90vw;
     overflow: hidden;
+    flex: 1;
 }
 
 #exerciseCard h3#exerciseTitle, #exerciseCard div#exerciseLastWeight, 
@@ -128,7 +129,8 @@ header h1 {
     padding: 0 1vw;
     margin: 0;
     height: 6vh;
-    width: auto;
+    width: 12vw;
+    min-width: 0;
     border-radius: 1em;
     border: none;
     font-size: clamp(12px, 2vw, 1em);
@@ -136,15 +138,18 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    color: #64676b;
 }
 
 #exerciseCard h3#exerciseTitle {
     text-align: center;
+    word-wrap: normal;
+    white-space: pre-wrap;
+    word-break: normal;
 }
 
 
 #exerciseCard div#exerciseLastWeight {
-    background-color: #255faa;
     font-weight: bold;
 }
 
@@ -162,5 +167,14 @@ header h1 {
 #exerciseCard button#updateExercise {
     color: white;
     background-color: #255faa;
+}
+
+#headerCard {
+    font-size: clamp(12px, 1vw, 1em);
+    width: 90vw;
+    margin: 5vh auto;
+    padding: 2vh 2vw;
+    background: #18191b;
+    border-radius: 1em;
 }
 
