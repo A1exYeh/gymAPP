@@ -1,7 +1,6 @@
 # gymAPP #
 A website I'm making to let me keep track of my maxes and reps in the gym.
 
-
 ## Frontend ##
 - Html
 - Css
@@ -28,5 +27,6 @@ A website I'm making to let me keep track of my maxes and reps in the gym.
 - Ability to recover password
 - Ability to add new exercises/custom exercises
 - Ability to add a custom image for each exercise with a default icon being chosen otherwise
-- Better UI/Sleeker design 
+- Better UI/Sleeker design
+- Better error handling and cleaner code structure 
  
