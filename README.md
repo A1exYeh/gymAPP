@@ -20,6 +20,8 @@ A website I'm making to let me keep track of my maxes and reps in the gym.
 
 ## Planned Features ##
 - Registration Feature
+- Ability to delete exercises
+- Ability to reorder exercises in the DB
 - Third Party:
   - Hosting for Database
   - Login Auth
