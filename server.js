@@ -26,7 +26,10 @@ app.use(session({
    secret: process.env.SESSION_SECRET,  //delegate session secret to the env file 
    resave: false,
    saveUninitialized: true,
-   cookie: { secure: true }  //set to true for deployment
+   cookie: { 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict'
+   }  //set to true for deployment
 }));
 
 
@@ -90,8 +93,8 @@ app.post('/submit',  async (req, res) => {
 //app get handler for dashbaord
 
 app.get('/dashboard', (req, res) => {
-   console.log("Dashboard accessed. Session authenticated:", req.session.isAuthenticated);
    if (req.session.isAuthenticated) {
+      console.log("Dashboard accessed. Session authenticated:", req.session.isAuthenticated);
       res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
    } else {
       console.log("User not authenticated. Redirecting to home.");
