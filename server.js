@@ -23,10 +23,10 @@ mongoose.connect(process.env.MONGODB_URI, {
 
 //session parameters
 app.use(session({
-   secret: 'your_session_secret',  //test key
+   secret: process.env.SESSION_SECRET,  //delegate session secret to the env file 
    resave: false,
    saveUninitialized: true,
-   cookie: { secure: false }  
+   cookie: { secure: true }  //set to true for deployment
 }));
 
 
