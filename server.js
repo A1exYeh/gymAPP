@@ -139,7 +139,7 @@ app.get('/sessionData', async (req, res) => {
 });
 
 //handler for posting an input from user
-app.post('/saveUserInput', async (req, res) => {
+app.post('/saveGymVisit', async (req, res) => {
    if (req.session.isAuthenticated) {
       const {newVisitDate} = req.body;
 
@@ -190,6 +190,49 @@ app.post('/updateExercise', async (req, res) => {
       }
    }
 });
+
+app.post('/addExercise', async (req, res) => {
+   if (req.session.isAuthenticated) {
+      const {exerciseAddName, exerciseAddWeight} = req.body;
+      try {
+         const user = await User.findOneAndUpdate(
+            { username: req.session.username},
+            {
+               $push: {
+                  exercises: {
+                     name: exerciseAddName,
+                     lastWeight: exerciseAddWeight,
+                     lastUpdated: new Date()
+                  }
+               }
+            },
+            { new: true, runValidators: true } 
+         );
+
+         if (user) {
+            //create a new exercise object from the last exercise in the list, the newest added exercise
+            const newAddExercise = user.exercises[user.exercises.length - 1];
+            //our response is a json with these parameters 
+            res.json({
+               success: true,
+               message: 'Exercise added successfully',
+               exercise: newAddExercise
+            });
+         } else {
+            //if error we send our response as an error with a json
+            res.status(404).json({
+               success: false,
+               message: "User not found"
+            });
+         }
+      } catch (error) {
+         console.log("Error adding exercise to database: ", error);
+         res.status(500).json({ success: false, message: 'Error adding exercise' });
+      }
+   } else {
+      res.status(403).json({ success: false, message: 'User Not authenticated' });
+   }
+})
 
 //get handler for valid login endpoint
 app.get('/validLogin', (req, res) => {
