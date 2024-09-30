@@ -7,6 +7,9 @@ const userInput = document.getElementById('userInput');
 const addExerciseButton = document.getElementById('addExerciseButton');
 const updateGymVisitButton = document.getElementById('addVisitDateButton');
 const logOutButton = document.getElementById('logOutButton');
+const addExercisePopup = document.getElementById('addExercisePopup');
+const addExerciseForm = document.getElementById('addExerciseForm');
+
 
 //updates an exercise with data from user
 function updateExercise(exerciseName, newWeight) {
@@ -83,6 +86,8 @@ function createExerciseCard(exercise) {
 // get and populate the exercise list with exercise cards made up of user exercises
 // on page refresh
 document.addEventListener('DOMContentLoaded', function (e) {
+   //hide our add exercise popup
+   addExercisePopup.style.display = 'none';
    const exerciseList = document.getElementById('exerciseList');
    fetch('/sessionData', {
          method: 'GET'
@@ -143,6 +148,50 @@ logOutButton.addEventListener('click', function (e) {
       });
 });
 
+//add exercise
+addExerciseButton.addEventListener('click', function(e) {
+   
+   //show the form
+   addExercisePopup.style.display = 'block';
+   //handle submit
+   
+});
+
+addExerciseForm.addEventListener('submit', function(e) {
+   e.preventDefault();
+   const exerciseAddName = document.getElementById('exerciseName').value;
+   const exerciseAddWeight = document.getElementById('exerciseWeight').value;
+   fetch('/addExercise', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         exerciseAddName: exerciseAddName,
+         exerciseAddWeight: exerciseAddWeight
+      })
+   })
+   .then(response => response.json())
+   .then(data => {
+      if (data.success) {
+         //debug log
+         console.log('Exercise added successfully');
+         //call our createExerciseCard to make a card for the new exercise
+         const exerciseCard = createExerciseCard(data.exercise);
+         //append it to our exercise list 
+         document.getElementById('exerciseList').appendChild(exerciseCard);
+         //hide the form
+         addExercisePopup.style.display = 'none';
+         //reset the form fields
+         addExerciseForm.reset();
+      } else {
+         console.log ('Failed to add exercise to profile.');
+      }
+   })
+   .catch(error => {
+      console.log("Error appending exercise: ", error);
+   });
+});
 
 //update date of last visited date to the gym
 updateGymVisitButton.addEventListener('click', function (e) {
@@ -150,7 +199,7 @@ updateGymVisitButton.addEventListener('click', function (e) {
    const newVisitDate = new Date();
    //const savedInputElement = document.getElementById('savedInput');
 
-   fetch('/saveUserInput', {
+   fetch('/saveGymVisit', {
          method: 'POST',
          headers: {
             'Content-Type': 'application/json'
@@ -166,6 +215,6 @@ updateGymVisitButton.addEventListener('click', function (e) {
          }
       })
       .catch(error => {
-         console.log("Error in saving user input: ", error);
+         console.log("Error in saving gym visit input: ", error);
       });
 });
