@@ -25,11 +25,12 @@ if (logInCard) {
             credentials: 'same-origin'
          })
          //whatever response we get, we read it as a json file
-         .then(response => {
-            if (response.redirected) {
-               window.location.href = response.url;
+         .then(response => response.json())
+         .then(data => {
+            if (data.success) {
+               window.location.href = data.redirect;
             } else {
-               return response.json();
+               console.log("Login failed.", data.message);
             }
          })
          .catch(error => {
