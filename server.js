@@ -12,6 +12,7 @@ const app = express();
 //file path
 const path = require('path');
 
+//dotenv file 
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGODB_URI, {
@@ -168,7 +169,10 @@ app.get('/dashboard',  async (req, res) => {
 
 //logout get handler
 app.get('/logout', (req, res) => {
-   console.log("Current session:", req.session); // Log the current session
+   if (!session.isAuthenticated) {
+      return res.redirect('/');
+   } else {
+      console.log("Current session:", req.session); // Log the current session
 
    req.session.destroy((err) => {
       if (err) {
@@ -179,6 +183,7 @@ app.get('/logout', (req, res) => {
 
       res.redirect('/logoutPage') // Serve logout page
    });
+   }
 });
 
 app.get('/logoutPage', (req, res) => {
@@ -317,6 +322,54 @@ app.post('/addExercise', async (req, res) => {
          res.status(500).json({
             success: false,
             message: 'Error adding exercise'
+         });
+      }
+   } else {
+      res.status(403).json({
+         success: false,
+         message: 'User Not authenticated'
+      });
+   }
+})
+
+app.post('/deleteExercise', async (req, res) => {
+   if (req.session.isAuthenticated) {
+      const {
+         exerciseDeleteName
+      } = req.body;
+      try {
+         const user = await User.updateOne({
+            username: req.session.username
+         }, {
+            $pull: {
+               exercises: {
+                  name: exerciseDeleteName
+               }
+            }
+         }, {
+            new: true,
+            runValidators: true
+         });
+
+         if (user) {
+            //create a new exercise object from the last exercise in the list, the newest added exercise
+            //our response is a json with these parameters 
+            res.json({
+               success: true,
+               message: 'Exercise ' + exerciseDeleteName + ' deleted successfully.'
+            });
+         } else {
+            //if error we send our response as an error with a json
+            res.status(404).json({
+               success: false,
+               message: "User not found"
+            });
+         }
+      } catch (error) {
+         console.log("Error deleting exercise from database: ", error);
+         res.status(500).json({
+            success: false,
+            message: 'Error deleting exercise'
          });
       }
    } else {

@@ -46,6 +46,27 @@ function updateExercise(exerciseName, newWeight) {
       })
 }
 
+function deleteExercise(exerciseName) {
+   fetch('/deleteExercise', {
+      method: 'POST',
+      headers: {
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         exerciseDeleteName: exerciseName //stringify the title of this exercise card as a json
+      })
+   })
+   .then (response => response.json())
+   .then (data => {
+      console.log(JSON.stringify(data));
+      if (data.success) {
+         console.log(data.message);
+      } else {
+         console.log("Error deleting exercise.");
+      }
+   })
+}
+
 //creates and populates an exercise card given an exercise object
 function createExerciseCard(exercise) {
    const card = document.createElement('div');
@@ -56,6 +77,9 @@ function createExerciseCard(exercise) {
          <input type="number" id="newExerciseWeight" placeholder="New weight">
          <button id="updateExercise">
             Update
+         </button>
+         <button id="deleteExercise">
+            Remove
          </button>
       `;
 
@@ -79,6 +103,22 @@ function createExerciseCard(exercise) {
       });
    } else {
       console.error(`Update button not found for ${exercise.name}`);
+   }
+
+   const deleteExerciseButton = card.querySelector('#deleteExercise');
+   if (deleteExerciseButton) {
+      //when a user click this update exercise button, if there is a new weight inputted 
+      //we will update the exercise in our db and the page will load it accordingly
+      deleteExerciseButton.addEventListener('click', function () {
+         const exerciseName = card.querySelector('#exerciseTitle');
+         if (exerciseName) {
+            deleteExercise(exercise.name);
+         } else {
+            console.error(`Could not get name for: ${exercise.name}`);
+         }
+      });
+   } else {
+      console.error(`Delete button not found for ${exercise.name}`);
    }
 
    return card;
