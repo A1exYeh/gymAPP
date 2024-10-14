@@ -11,6 +11,7 @@ const User = require('./models/user.js');
 const app = express();
 //file path
 const path = require('path');
+const user = require('./models/user.js');
 
 //dotenv file 
 require('dotenv').config();
@@ -68,6 +69,10 @@ app.use(express.static((path.join(__dirname, 'public'))));
 
 //setup get handler for index.html for when server starts
 app.get('/', (req, res) => {
+   if (req.session.isAuthenticated) {
+      console.log("Already Authenticated: " , req.session, "Sending to Dashboard.");
+      res.redirect('/');
+   }
    res.sendFile(__dirname + '/public/index.html');
 });
 

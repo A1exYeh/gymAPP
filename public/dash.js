@@ -78,12 +78,12 @@ function createExerciseCard(exercise) {
    card.innerHTML = `
          <h3 id="exerciseTitle" data-name="${exercise.name}">${exercise.name}</h3>
          <div id="exerciseLastWeight">${exercise.lastWeight}<span> LBs</span></div>
-         <input type="number" id="newExerciseWeight" placeholder="New weight">
+         <input type="number" id="newExerciseWeight" placeholder="New weight" min="1">
          <button id="updateExercise">
-            Update
+            <i class="bi bi-arrow-clockwise"></i>
          </button>
          <button id="deleteExercise">
-            Remove
+            <i class="bi bi-trash-fill"></i>
          </button>
       `;
 
@@ -100,7 +100,12 @@ function createExerciseCard(exercise) {
          const newWeightInput = card.querySelector('#newExerciseWeight');
          if (newWeightInput) {
             const newWeight = newWeightInput.value;
-            updateExercise(exercise.name, newWeight);
+            if (newWeight > 0) {
+               updateExercise(exercise.name, newWeight);
+            } else {
+               console.error(`New weight input invalid ${exercise.name}`);
+               alert(`New weight for ${exercise.name} must be more than 0.`);
+            }
          } else {
             console.error(`New weight input not found for ${exercise.name}`);
          }

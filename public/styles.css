@@ -119,13 +119,14 @@ header h1 {
     margin: 1vh auto;
     padding: 2vh 2vw;
     gap: 4vw;
-    width: 90vw;
+    width: 80vw;
     overflow: hidden;
     flex: 1;
 }
 
 #exerciseCard h3#exerciseTitle, #exerciseCard div#exerciseLastWeight, 
-#exerciseCard #newExerciseWeight, #exerciseCard button#updateExercise {
+#exerciseCard #newExerciseWeight, #exerciseCard button#updateExercise,
+#exerciseCard button#deleteExercise {
     padding: 0 1vw;
     margin: 0;
     height: 6vh;
@@ -157,21 +158,25 @@ header h1 {
     background-color: #255faa;
     color: white;
     width: 12vw;
-    
+}
+
+#exerciseCard #newExerciseWeight:invalid:focus {
+    outline: solid red;
 }
 
 #exerciseCard #newExerciseWeight:focus {
     outline: solid #62a6ff;
 }
 
-#exerciseCard button#updateExercise {
+#exerciseCard button#updateExercise,
+#exerciseCard button#deleteExercise {
     color: white;
     background-color: #255faa;
 }
 
 #headerCard {
     font-size: clamp(12px, 1vw, 1em);
-    width: 90vw;
+    width: 80vw;
     margin: 5vh auto;
     padding: 2vh 2vw;
     background: #18191b;
