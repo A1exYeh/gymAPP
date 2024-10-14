@@ -1,3 +1,5 @@
+const res = require("express/lib/response");
+
 //check for existence of dashboard header to verify that we are in dashboard.html
 const dashboard = document.getElementById('dashHeader');
 //test variables for user input 
@@ -57,6 +59,9 @@ function createExerciseCard(exercise) {
          <button id="updateExercise">
             Update
          </button>
+         <button id="deleteExercise">
+            Remove
+         </button>
       `;
 
    //in the previous code in this function we create a div with the id exerciseCard
@@ -79,6 +84,39 @@ function createExerciseCard(exercise) {
       });
    } else {
       console.error(`Update button not found for ${exercise.name}`);
+   }
+
+   const deleteExerciseButton = card.querySelector('#deleteExercise');
+   if (deleteExerciseButton) {
+      //when a user click this update exercise button, if there is a new weight inputted 
+      //we will update the exercise in our db and the page will load it accordingly
+      deleteExerciseButton.addEventListener('click', function () {
+         const exerciseName = card.querySelector('#exerciseTitle');
+         if (exerciseName) {
+            fetch('/deleteExercise', {
+               metod: 'POST',
+               headers: {
+                  'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+                  exerciseDeleteName: exerciseName //stringify the title of this exercise card as a json
+               })
+            })
+            .then (response => response.json())
+            .then (data => {
+               console.log(JSON.stringify(data));
+               if (data.success) {
+                  console.log(data.message);
+               } else {
+                  console.log("Error deleting exercise.");
+               }
+            })
+         } else {
+            console.error(`Could not get name for: ${exercise.name}`);
+         }
+      });
+   } else {
+      console.error(`Delete button not found for ${exercise.name}`);
    }
 
    return card;
