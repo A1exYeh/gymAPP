@@ -169,9 +169,6 @@ app.get('/dashboard',  async (req, res) => {
 
 //logout get handler
 app.get('/logout', (req, res) => {
-   if (!session.isAuthenticated) {
-      return res.redirect('/');
-   } else {
       console.log("Current session:", req.session); // Log the current session
 
    req.session.destroy((err) => {
@@ -183,7 +180,6 @@ app.get('/logout', (req, res) => {
 
       res.redirect('/logoutPage') // Serve logout page
    });
-   }
 });
 
 app.get('/logoutPage', (req, res) => {

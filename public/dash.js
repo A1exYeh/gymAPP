@@ -61,6 +61,10 @@ function deleteExercise(exerciseName) {
       console.log(JSON.stringify(data));
       if (data.success) {
          console.log(data.message);
+         const exerciseCard = document.querySelector(`#exerciseCard #exerciseTitle[data-name="${exerciseName}"]`).closest('#exerciseCard');
+         if (exerciseCard) {
+            exerciseCard.remove();
+         }
       } else {
          console.log("Error deleting exercise.");
       }
