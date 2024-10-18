@@ -9,7 +9,7 @@ const updateGymVisitButton = document.getElementById('addVisitDateButton');
 const logOutButton = document.getElementById('logOutButton');
 const addExercisePopup = document.getElementById('addExercisePopup');
 const addExerciseForm = document.getElementById('addExerciseForm');
-
+const closeExerciseForm = document.getElementById('closeExerciseForm');
 
 //updates an exercise with data from user
 function updateExercise(exerciseName, newWeight) {
@@ -202,7 +202,17 @@ addExerciseButton.addEventListener('click', function(e) {
    
    //show the form
    addExercisePopup.style.display = 'block';
-   //handle submit
+   addExerciseButton.classList.add('formBlur');
+   
+});
+
+closeExerciseForm.addEventListener('click', function(e) {
+   
+   //clear the form
+   addExerciseForm.reset();
+   //hide the form
+   addExercisePopup.style.display = 'none';
+   addExerciseButton.classList.remove('formBlur');
    
 });
 
