@@ -15,7 +15,9 @@ header h1 {
 }
 
 #logInCard {
-    background: #18191b;
+    
+    color: black;
+    background: white;
     border-radius: 1.2em;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.9px);
@@ -49,11 +51,12 @@ header h1 {
 }
 
 #username, #password{
-    color: #E0E0E0;
+    color: white;
     background-color: #255faa;
     border: none;
     border-radius: 1em;
     padding: 1em;
+    transition: all 0.3s ease-in-out;
 }
 
 #username:focus, #password:focus {
@@ -61,6 +64,7 @@ header h1 {
 }
 
 #logInSubmit {
+    transition: all 0.3s ease-in-out;
     color: #E0E0E0;
     background-color: #255faa;
     border: none;
@@ -68,6 +72,7 @@ header h1 {
     padding: 1em;
     font-weight: bold;
     margin-bottom: 0.5em;
+    cursor: pointer;
 }
 
 #logInSubmit:hover {
