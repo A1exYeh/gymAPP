@@ -52,21 +52,25 @@ header h1 {
 
 #username, #password{
     color: white;
-    background-color: #255faa;
+    background-color: #62a6ff;
     border: none;
     border-radius: 1em;
     padding: 1em;
     transition: all 0.3s ease-in-out;
 }
 
+#username::placeholder, #password::placeholder {
+    color: white;
+}
+
 #username:focus, #password:focus {
-    outline: #62a6ff solid 0.3em;
+    outline: #76b1ff solid 0.3em;
 }
 
 #logInSubmit {
     transition: all 0.3s ease-in-out;
-    color: #E0E0E0;
-    background-color: #255faa;
+    color: white;
+    background-color: #62a6ff;
     border: none;
     border-radius: 1em;
     padding: 1em;
@@ -76,7 +80,7 @@ header h1 {
 }
 
 #logInSubmit:hover {
-    background-color: #62a6ff;
+    background-color: #76b1ff;
 }
 
 /* dashboard.html */
