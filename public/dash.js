@@ -74,9 +74,10 @@ function deleteExercise(exerciseName) {
 
 //creates and populates an exercise card given an exercise object
 function createExerciseCard(exercise) {
-   const card = document.createElement('div');
-   card.id = 'exerciseCard';
+   const card = document.createElement('li');
+   card.classList.add('list-group-item');
    card.innerHTML = `
+      <div id="exerciseCard">
          <h3 id="exerciseTitle" data-name="${exercise.name}">${exercise.name}</h3>
          <div id="exerciseLastWeight">${exercise.lastWeight}<span> LBs</span></div>
          <input type="number" id="newExerciseWeight" placeholder="New weight" min="1">
@@ -86,6 +87,7 @@ function createExerciseCard(exercise) {
          <button id="deleteExercise">
             <i class="bi bi-trash-fill"></i>
          </button>
+      </div>
       `;
 
    //in the previous code in this function we create a div with the id exerciseCard

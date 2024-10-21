@@ -1,11 +1,11 @@
 html, body {
     font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     box-sizing: border-box;
-    background-color: #000000;
+    background-color: #EDEDED;
     margin: 0;
     height: 100vh;
     width: auto;
-    color: #E0E0E0;
+    color: black;
 }
 
 header h1 {
@@ -15,7 +15,9 @@ header h1 {
 }
 
 #logInCard {
-    background: #18191b;
+    
+    color: black;
+    background: white;
     border-radius: 1.2em;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(8.9px);
@@ -49,11 +51,12 @@ header h1 {
 }
 
 #username, #password{
-    color: #E0E0E0;
+    color: white;
     background-color: #255faa;
     border: none;
     border-radius: 1em;
     padding: 1em;
+    transition: all 0.3s ease-in-out;
 }
 
 #username:focus, #password:focus {
@@ -61,6 +64,7 @@ header h1 {
 }
 
 #logInSubmit {
+    transition: all 0.3s ease-in-out;
     color: #E0E0E0;
     background-color: #255faa;
     border: none;
@@ -68,6 +72,7 @@ header h1 {
     padding: 1em;
     font-weight: bold;
     margin-bottom: 0.5em;
+    cursor: pointer;
 }
 
 #logInSubmit:hover {
@@ -80,52 +85,42 @@ header h1 {
     border: none !important;
 }
 
-#navTogglerLogo
-
-#dashNav{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 2vw;
-    height: auto;
-    margin: 0;
-    font-size: clamp(1vw, 1em, 2vw);
-    background: #18191b;
+.nav-item a {
+    font-size: large;
 }
 
-#dashNav, #dashNav a {
-    color: white;
-    font-size: clamp(1em, 1vw, 3vw);
+.nav-item a:hover {
+    color: #62a6ff !important;
+    font-weight: bold;
 }
 
-#dashNav a {
-    background-color: #255faa;
-    padding: 2vh 2vw;
-    text-decoration: none;
-    margin-right: 8vw;
+#navTogglerLogo svg:hover, .navbar-brand svg:hover {
+    transition: 0.3s ease-in-out;
+    fill: #62a6ff !important;
+    transform: scale(1.05);
 }
 
-#dashNav a:hover {
-    background-color: #62a6ff;
+.nav-item {
+    width: fit-content;
 }
 
-#dashNav #logOutButton {
-    margin-right: auto;
-    margin-left: 8vw;
+.nav-link.active {
+    font-weight: 600;
+}
+
+.list-group-item {
+    background-color: white;
+    color: black !important;
 }
 
 #exerciseCard {
-    background: #18191b;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-radius: 1em;
-    margin: 1vh auto;
-    padding: 2vh 2vw;
+    border: none;
     gap: 4vw;
-    width: 80vw;
+    width: 100%;
     overflow: hidden;
     flex: 1;
 }
@@ -136,16 +131,14 @@ header h1 {
     padding: 0 1vw;
     margin: 0;
     height: 6vh;
-    width: 12vw;
+    width: 20%;
     min-width: 0;
     border-radius: 1em;
     border: none;
     font-size: clamp(12px, 2vw, 1em);
-    text-align: center;
+    text-align: center !important;
     display: flex;
-    justify-content: center;
     align-items: center;
-    color: #64676b;
 }
 
 #exerciseCard h3#exerciseTitle {
@@ -153,17 +146,18 @@ header h1 {
     word-wrap: normal;
     white-space: pre-wrap;
     word-break: normal;
+    cursor: default;
 }
 
 
 #exerciseCard div#exerciseLastWeight {
     font-weight: bold;
+    cursor: default;
 }
 
 #exerciseCard #newExerciseWeight {
-    background-color: #255faa;
+    background-color: #62a6ff;
     color: white;
-    width: 12vw;
 }
 
 #exerciseCard #newExerciseWeight:invalid:focus {
@@ -177,41 +171,65 @@ header h1 {
 #exerciseCard button#updateExercise,
 #exerciseCard button#deleteExercise {
     color: white;
-    background-color: #255faa;
+    background-color: #62a6ff;
 }
 
-#headerCard {
-    font-size: clamp(12px, 1vw, 1em);
-    width: 80vw;
-    margin: 5vh auto;
-    padding: 2vh 2vw;
-    background: #18191b;
+#exerciseCard button#updateExercise i:hover,
+#exerciseCard button#deleteExercise i:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.5);
+}
+
+#exerciseCard button#updateExercise i,
+#exerciseCard button#deleteExercise i {
+    margin: 0 auto;
+    
+}
+
+.card {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.headerCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
     border-radius: 1em;
 }
+
+#addVisitDateButton {
+    border: none;
+    color: white;
+    border-radius: 0.6em;
+    padding: 0.4em;
+    background-color: #62a6ff;
+}
+
 
 #buttonHeader {
     text-align: center;
 }
 
 #addExerciseButton {
-    outline: 2px white solid;
     border: none;
-    color: white;
+    color: black;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
     background-color: transparent;
     font-weight: 600;
-    border-radius: 50%;
-    margin: 1% 0;
+    margin: 5% 0;
     width: fit-content;
     height: auto;
-    font-size: clamp(1.4em, 3vw, 2em);
+    font-size: clamp(2em, 5vw, 2.6em);
     transition: all 0.2s ease-in;
     cursor: pointer;
 }
 
 #addExerciseButton:hover {
-    outline:none;
-    color: black;
-    background-color: #255faa;
+    color: #255faa;
 }
 
 #addExerciseButton::before {
