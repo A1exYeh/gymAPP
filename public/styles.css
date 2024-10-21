@@ -76,6 +76,12 @@ header h1 {
 
 /* dashboard.html */
 
+#navToggler {
+    border: none !important;
+}
+
+#navTogglerLogo
+
 #dashNav{
     display: flex;
     flex-direction: row;
