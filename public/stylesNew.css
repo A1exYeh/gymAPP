@@ -131,7 +131,7 @@ header h1 {
     border-radius: 1em;
     border: none;
     font-size: clamp(12px, 2vw, 1em);
-    text-align: left;
+    text-align: center !important;
     display: flex;
     align-items: center;
 }
@@ -141,11 +141,13 @@ header h1 {
     word-wrap: normal;
     white-space: pre-wrap;
     word-break: normal;
+    cursor: default;
 }
 
 
 #exerciseCard div#exerciseLastWeight {
     font-weight: bold;
+    cursor: default;
 }
 
 #exerciseCard #newExerciseWeight {
@@ -165,6 +167,18 @@ header h1 {
 #exerciseCard button#deleteExercise {
     color: white;
     background-color: #62a6ff;
+}
+
+#exerciseCard button#updateExercise i:hover,
+#exerciseCard button#deleteExercise i:hover {
+    transition: all 0.3s ease-in-out;
+    transform: scale(1.5);
+}
+
+#exerciseCard button#updateExercise i,
+#exerciseCard button#deleteExercise i {
+    margin: 0 auto;
+    
 }
 
 .card {
