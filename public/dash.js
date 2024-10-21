@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 //logout button
 logOutButton.addEventListener('click', function (e) {
    e.preventDefault();
-
+   console.log("Logout button clicked.");
    fetch('/logout', {
          method: 'GET',
          cache: 'no-cache'
