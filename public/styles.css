@@ -166,6 +166,7 @@ header h1 {
 
 #exerciseCard #newExerciseWeight::placeholder {
     color: white;
+    font-weight: bold;
 }
 
 #exerciseCard #newExerciseWeight:invalid:focus {
@@ -182,10 +183,14 @@ header h1 {
     background-color: #D9D9D9;
 }
 
+#exerciseCard button#updateExercise i, #exerciseCard button#deleteExercise i {
+    font-size: 1.8em;
+}
+
 #exerciseCard button#updateExercise:hover i,
 #exerciseCard button#deleteExercise:hover i {
     transition: all 0.3s ease-in-out;
-    transform: scale(1.5);
+    transform: scale(1.2);
 }
 
 #exerciseCard button#updateExercise i,
