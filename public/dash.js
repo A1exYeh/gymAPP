@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
 
          if (data.lastGymVisit) {
             console.log("last gym visit: ", data.lastGymVisit);
-            lastGymVisit.textContent = new Date(data.lastGymVisit);
+            lastGymVisit.textContent = new Date(data.lastGymVisit).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
          }
 
          if (data.exercises) {
@@ -276,7 +276,7 @@ addExerciseForm.addEventListener('submit', function(e) {
 //update date of last visited date to the gym
 updateGymVisitButton.addEventListener('click', function (e) {
    e.preventDefault();
-   const newVisitDate = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+   const newVisitDate = new Date();
 
    fetch('/saveGymVisit', {
          method: 'POST',
@@ -290,7 +290,7 @@ updateGymVisitButton.addEventListener('click', function (e) {
       .then(resposne => resposne.json())
       .then(data => {
          if (data.success) {
-            lastGymVisit.textContent = newVisitDate;
+            lastGymVisit.textContent = newVisitDate.toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
          }
       })
       .catch(error => {

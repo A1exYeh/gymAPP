@@ -112,6 +112,11 @@ header h1 {
     font-weight: 600;
 }
 
+#exerciseList {
+    border-radius: 1em !important;
+    padding-bottom: 5%;
+}
+
 .list-group-item {
     background-color: #8D8D8D;
     color: white !important;
@@ -211,6 +216,7 @@ header h1 {
     background-color: white;
     border-radius: 1em;
     max-height: 185px;
+    overflow: hidden;
 }
 
 #lastGymVisit {
