@@ -1,0 +1,8 @@
+{
+   "name": "gymAPP",
+   "theme_color": "#000000",
+   "background_color": "#ededed",
+   "display": "standalone",
+   "scope": "/",
+   "start_url": "/"
+ }
