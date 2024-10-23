@@ -222,6 +222,7 @@ addExerciseButton.addEventListener('click', function(e) {
    
    //show the form
    addExercisePopup.style.display = 'block';
+   addExercisePopup.style.zIndex = 1;
    addExerciseButton.classList.add('formBlur');
    
 });

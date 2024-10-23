@@ -94,6 +94,19 @@
             </div>
             <div class="card mx-3">
                 <ul id="exerciseList" class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div id="exerciseCard">
+                            <h3 id="exerciseTitle" data-name="${exercise.name}">${exercise.name}</h3>
+                            <div id="exerciseLastWeight">${exercise.lastWeight}<span> LBs</span></div>
+                            <input type="number" id="newExerciseWeight" placeholder="New weight" min="1">
+                            <button id="updateExercise">
+                               <i class="bi bi-arrow-clockwise"></i>
+                            </button>
+                            <button id="deleteExercise">
+                               <i class="bi bi-trash-fill"></i>
+                            </button>
+                         </div>
+                    </li>
                 </ul>
             </div>
             <div id="exerciseList">
@@ -106,11 +119,9 @@
 
                 <form id="addExerciseForm">
                     <h2>Add New Exercise</h2>
-                    <label for="exerciseName">Exercise Name:</label>
-                    <input type="text" id="exerciseName" required>
+                    <input type="text" id="exerciseName"  placeholder="Exercise Name" required>
 
-                    <label for="exerciseWeight">Initial Weight (lbs):</label>
-                    <input type="number" id="exerciseWeight" required>
+                    <input type="number" id="exerciseWeight" placeholder="Initial Weight (lbs)" min="1" required>
 
                     <button type="submit">Add Exercise</button>
                     <button type="button" id="closeExerciseForm">Cancel</button>
