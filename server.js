@@ -220,7 +220,7 @@ app.post('/saveGymVisit', async (req, res) => {
          newVisitDate
       } = req.body;
 
-      console.log("req.body: ", newVisitDate);
+      console.log("/saveGymVisit req.body: ", newVisitDate);
 
       await User.findOneAndUpdate({
          username: req.session.username

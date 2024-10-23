@@ -276,8 +276,7 @@ addExerciseForm.addEventListener('submit', function(e) {
 //update date of last visited date to the gym
 updateGymVisitButton.addEventListener('click', function (e) {
    e.preventDefault();
-   const newVisitDate = new Date();
-   //const savedInputElement = document.getElementById('savedInput');
+   const newVisitDate = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
 
    fetch('/saveGymVisit', {
          method: 'POST',
@@ -288,7 +287,7 @@ updateGymVisitButton.addEventListener('click', function (e) {
             newVisitDate: newVisitDate
          })
       })
-      .then(respone => respone.json())
+      .then(resposne => resposne.json())
       .then(data => {
          if (data.success) {
             lastGymVisit.textContent = newVisitDate;

@@ -210,6 +210,11 @@ header h1 {
     justify-content: center;
     background-color: white;
     border-radius: 1em;
+    max-height: 185px;
+}
+
+#lastGymVisit {
+    font-size: 1.4em !important;
 }
 
 #addVisitDateButton {
