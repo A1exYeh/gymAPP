@@ -221,8 +221,9 @@ logOutButton.addEventListener('click', function (e) {
 addExerciseButton.addEventListener('click', function(e) {
    
    //show the form
-   addExercisePopup.style.display = 'block';
    addExercisePopup.style.zIndex = 1;
+   addExercisePopup.style.display = 'block';
+   addExercisePopup.style.visibility = 'visible';
    addExerciseButton.classList.add('formBlur');
    
 });
@@ -233,6 +234,7 @@ closeExerciseForm.addEventListener('click', function(e) {
    addExerciseForm.reset();
    //hide the form
    addExercisePopup.style.display = 'none';
+   addExercisePopup.style.visibility = 'hidden';
    addExerciseButton.classList.remove('formBlur');
    
 });

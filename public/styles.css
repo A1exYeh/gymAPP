@@ -262,7 +262,7 @@ header h1 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
-    position: absolute;
+    position: fixed;
     display: block;
     top: 0;
     left: 0;
@@ -278,8 +278,9 @@ header h1 {
 
 #addExercisePopup {
     position: fixed;
-    top: 50%;
+    top: 25%;
     width: 100%;
+    visibility: hidden;
 }
 
 #addExerciseForm {
