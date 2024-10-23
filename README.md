@@ -23,7 +23,7 @@ A website I'm making to let me keep track of my maxes and reps in the gym.
 - Third-party hosting through Render
 
 ## Planned Features (NO ETA) ##
-### * I don't really have a strong desire to scale this app to commercial use as this is more of a personal project. Increase in demand would result in more/faster features implemented. ###
+- *Currently I don't need to scale this app to commercial use as this is more of a personal project. Increase in demand would result in more/faster features implemented.*
 - Registration Feature
 - Ability to reorder exercises in the DB
 - Login feature to prevent same usernames 
