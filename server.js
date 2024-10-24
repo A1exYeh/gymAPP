@@ -107,11 +107,16 @@ app.post('/submit', async (req, res) => {
          req.session.isAuthenticated = true;
 
          //debug
-         console.log('Session created:', {
+         console.log('Session:', {
             sessionId: req.sessionID,
             userId: req.session.userId,
             username: req.session.username,
             isAuthenticated: req.session.isAuthenticated
+         });
+
+         //check for an existing session and delete it
+         await store.deleteOne ({
+            'session.username': req.session.userId
          });
    
          //save the session
@@ -182,7 +187,7 @@ app.get('/logout', (req, res) => {
       } else {
          console.log("Session destroyed");
       }
-
+      res.clearCookie('connect.sid'); //clear the cookie of the user's browser if they hit logout 
       res.redirect('/logoutPage') // Serve logout page
    });
 });
