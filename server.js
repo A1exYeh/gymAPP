@@ -115,8 +115,9 @@ app.post('/submit', async (req, res) => {
          });
 
          //check for an existing session and delete it
-         await store.deleteOne ({
-            'session.username': req.session.userId
+         const sessionDB = mongoose.connection.collection('sessions');
+         await sessionDB.deleteOne ({
+            'session.userId': req.session.userId
          });
    
          //save the session

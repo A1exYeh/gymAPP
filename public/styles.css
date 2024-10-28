@@ -215,8 +215,8 @@ header h1 {
     justify-content: center;
     background-color: white;
     border-radius: 1em;
-    max-height: 185px;
     overflow: hidden;
+    padding: 1em;
 }
 
 #lastGymVisit {
