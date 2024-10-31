@@ -14,8 +14,7 @@ header h1 {
     text-align: center;
 }
 
-#logInCard {
-    
+#logInCard, #registerCard {
     color: black;
     background: white;
     border-radius: 1.2em;
@@ -35,16 +34,16 @@ header h1 {
     align-items: center;
 }
 
-#logInCard h1 {
+#logInCard h1, #registerCard h1 {
     margin-top: 0.8em;
 }
 
-#logInCard p {
+#logInCard p, #registerCard p {
     display: flex;
     flex-direction: column;
 }
 
-#logInCard p label {
+#logInCard p label, #registerCard p label {
     align-self: flex-start;
     margin-bottom: 0.8em;
     font-weight: bold;
@@ -67,7 +66,7 @@ header h1 {
     outline: #76b1ff solid 0.3em;
 }
 
-#logInSubmit {
+#logInSubmit, #registerSubmit {
     transition: all 0.3s ease-in-out;
     color: white;
     background-color: #62a6ff;
@@ -79,7 +78,7 @@ header h1 {
     cursor: pointer;
 }
 
-#logInSubmit:hover {
+#logInSubmit:hover, #registerSubmit:hover {
     background-color: #76b1ff;
 }
 

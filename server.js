@@ -11,7 +11,6 @@ const User = require('./models/user.js');
 const app = express();
 //file path
 const path = require('path');
-const user = require('./models/user.js');
 
 //dotenv file 
 require('dotenv').config();
@@ -397,8 +396,58 @@ app.get('/invalidLogin', (req, res) => {
    res.sendFile(__dirname + '/public/invalidLogin.html');
 });
 
-app.get('/loadExercise', (req, res) => {
+app.get('/registerLink', (req, res) => {
+   res.redirect('/registerPage');
+});
 
+app.get('/registerPage', (req, res) => {
+   res.sendFile(path.join(__dirname, 'public', 'register.html'));
+});
+
+app.post('/registerAccount', async (req, res) => {
+   console.log('Register form data received:', req.body);
+
+   //UNCHECKED: makes the first form entry the username and the second entry the password 
+   const {
+      username,
+      password
+   } = req.body;
+
+   try {
+      console.log(`Received potential username: ${username}, password: ${password}`);
+      const user = await User.findOne({username});
+      if (user) {
+         console.log("Username already exists.", user);
+         res.json({
+            succes: false,
+            redirect: '/registerPage',
+            error: "Username is already taken."
+         });
+      } else {
+         console.log(`No conflicting username. Attempting to register username: ${username} password:${password}`);
+         //if no user exists we make a new user
+         const newUser = new User({
+            username,
+            password,
+            exercises: [],
+            lastGymVisit: null
+         });
+
+         await newUser.save();
+
+         console.log ("New User Created: ", newUser);
+
+         res.json({
+            success: true,
+            redirect: '/'
+         });
+      }
+   } catch (error) {
+      console.error("Error Registering Account: ", error);
+      res.status(500).json({
+         error: 'Failed to Register'
+      });
+   }
 });
 
 //when the server starts successfully we send this message to the server side console

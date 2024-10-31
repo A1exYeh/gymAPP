@@ -30,6 +30,8 @@ if (logInCard) {
             if (data.success) {
                window.location.href = data.redirect;
             } else {
+               alert("No account found.");
+               logInCard.reset();
                console.log("Login failed.", data.message);
             }
          })
@@ -61,4 +63,27 @@ if (logOutButton) {
          });
    });
 
+}
+
+const registerLink = document.getElementById('registerLink');
+
+if (registerLink) {
+   registerLink.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      fetch('/registerLink', {
+         method: 'GET',
+         cache: 'no-cache'
+      })
+      .then(response => {
+         if (response.redirected) {
+            window.location.href = response.url;
+         } else {
+            console.error('Register failed, no redirect');
+         }
+      })
+      .catch(error => {
+         console.error('Error:', error);
+      });
+   });
 }
