@@ -14,6 +14,7 @@ A website I'm making to let me keep track of my maxes and reps in the gym.
 
 ## Current Features ##
 - Login with session implementation
+- Ability to register an account
 - Add a new exercise with a custom name and initial weight 
 - Ability to save:
   - Weights for individual exercises across accounts & update them
@@ -22,9 +23,7 @@ A website I'm making to let me keep track of my maxes and reps in the gym.
 - Ability to delete exercises
 - Third-party hosting through Render
 
-## Planned Features (NO ETA) ##
-- *Currently I don't need to scale this app to commercial use as this is more of a personal project. Increase in demand would result in more/faster features implemented.*
-- Registration Feature
+## Planned Features ##
 - Ability to reorder exercises in the DB
 - Login feature to prevent same usernames 
 - Ability to recover/change password
